@@ -5,38 +5,78 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 public class Main extends Application {
 
-    @Override
-    public void start(Stage primaryStage) {
-        primaryStage.setTitle("Skiver");
+	private static final String PASSWORD_FILE = "password.txt";
 
-        VBox vbox = new VBox(10);
-        vbox.setAlignment(Pos.CENTER);
-        vbox.setPadding(new Insets(25, 25, 25, 25));
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		primaryStage.setTitle("Skiver");
 
-        Text appName = new Text("Skiver");
-        Text appDescription = new Text("Secure Journaling Application");
+		VBox loginVBox = new VBox(10);
+		loginVBox.setAlignment(Pos.CENTER);
+		loginVBox.setPadding(new Insets(25, 25, 25, 25));
 
-        PasswordField pwBox = new PasswordField();
-        pwBox.setPromptText("Password");
+		Text appName = new Text("Skiver");
+		Text appDescription = new Text("Secure Journaling Application");
 
-        Button forgotPasswordButton = new Button("Forgot Password?");
+		PasswordField pwBox = new PasswordField();
+		pwBox.setPromptText("Password");
 
-        vbox.getChildren().addAll(appName, appDescription, pwBox, forgotPasswordButton);
+		Button loginButton = new Button("Login");
+		loginButton.setOnAction(event -> {
+			try {
+				if (!Files.exists(Paths.get(PASSWORD_FILE))) {
+					try (BufferedWriter writer = new BufferedWriter(new FileWriter(PASSWORD_FILE))) {
+						writer.write("pass");
+					}
+				}
 
-        Scene scene = new Scene(vbox, 400, 400);
-        primaryStage.setScene(scene);
-        primaryStage.show();
-    }
+				try (BufferedReader reader = new BufferedReader(new FileReader(PASSWORD_FILE))) {
+					String password = reader.readLine();
+					if (pwBox.getText().equals(password)) {
+						VBox mainAppVBox = new VBox(10);
+						mainAppVBox.setAlignment(Pos.CENTER);
+						mainAppVBox.setPadding(new Insets(25, 25, 25, 25));
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+						Label welcomeLabel = new Label("Main App stuff");
+						mainAppVBox.getChildren().add(welcomeLabel);
+
+						Scene mainAppScene = new Scene(mainAppVBox, 400, 400);
+						primaryStage.setScene(mainAppScene);
+						primaryStage.show();
+					} else {
+						System.out.println("Password doesn't match!");
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
+
+		Button forgotPasswordButton = new Button("Forgot Password?");
+
+		loginVBox.getChildren().addAll(appName, appDescription, pwBox, loginButton, forgotPasswordButton);
+
+		Scene loginScene = new Scene(loginVBox, 400, 400);
+		primaryStage.setScene(loginScene);
+		primaryStage.show();
+	}
+
+	public static void main(String[] args) {
+		launch(args);
+	}
 }
