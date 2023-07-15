@@ -41,7 +41,7 @@ public class Main extends Application {
 			try {
 				if (!Files.exists(Paths.get(PASSWORD_FILE))) {
 					try (BufferedWriter writer = new BufferedWriter(new FileWriter(PASSWORD_FILE))) {
-						writer.write("pass");
+						writer.write("p");
 					}
 				}
 
@@ -54,6 +54,16 @@ public class Main extends Application {
 
 						Label welcomeLabel = new Label("Main App stuff");
 						mainAppVBox.getChildren().add(welcomeLabel);
+
+						Button logoutButton = new Button("Logout");
+						logoutButton.setOnAction(logoutEvent -> {
+							try {
+								start(primaryStage);
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+						});
+						mainAppVBox.getChildren().add(logoutButton);
 
 						Scene mainAppScene = new Scene(mainAppVBox, 400, 400);
 						primaryStage.setScene(mainAppScene);
