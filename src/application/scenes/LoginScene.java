@@ -4,34 +4,44 @@ import javafx.geometry.Pos;
 import javafx.scene.layout.VBox;
 import javafx.geometry.Insets;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 
-import utils.FileUtils;
+import data.FileUtils;
 
 public class LoginScene implements ScreenI{
-    private VBox Screen = new VBox(10);
-
-    public VBox getScreen(){
-        return this.Screen;
+    private VBox rootBox = new VBox(10);
+    public Scene getScene(){
+        return new Scene(rootBox, 400, 400);
     }
 
-    public LoginScene(String pFile, Stage primaryStage){
-        this.Screen.setAlignment(Pos.CENTER);
-        this.Screen.setPadding(new Insets(25, 25, 25, 25));
+    public LoginScene(){
+        this.rootBox.setAlignment(Pos.CENTER);
+        this.rootBox.setPadding(new Insets(25, 25, 25, 25));
         Text appName = new Text("Skiver");
         Text appDescription = new Text("Secure Journaling Application");
         //loginButton here
-        Button loginButton = new Button("Login");
-        loginButton.setOnAction(event -> {
-            String password = FileUtils.readFile(pFile);
-
-        });
-
         PasswordField pwBox = new PasswordField();
         pwBox.setPromptText("Password");
+
+        Button loginButton = new Button("Login");
+        loginButton.setOnAction(event -> {
+            String password = FileUtils.readFile(PASSWORD_FILE);
+
+            if(pwBox.getText().equals(password) && pwBox.getText().equals("p")){
+                FirstLoginScene firstLoginScene = new FirstLoginScene();
+                firstLoginScene.setStage();
+            } else if (pwBox.getText().equals(password)){
+                DashboardScene dashboard = new DashboardScene();
+                dashboard.setStage();
+            } else {
+                //TODO: create alert for user and reprompt
+                System.out.println("Passwords don't match");
+            }
+        });
+
         Button forgotPasswordButton = new Button("Forgot Password?");
-        this.Screen.getChildren().addAll(appName, appDescription, pwBox, forgotPasswordButton);
+        this.rootBox.getChildren().addAll(appName, appDescription, pwBox,loginButton, forgotPasswordButton);
     }
 }

@@ -6,28 +6,30 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
-public class DashboardScene {
+
+public class DashboardScene implements ScreenI{
     private VBox rootBox = new VBox(10);
 
     public Scene getScene(){
         return new Scene(rootBox, 400, 400);
     }
 
-    public DashboardScene(Stage primaryStage){
+    public DashboardScene(){
         this.rootBox.setAlignment(Pos.CENTER);
 	    this.rootBox.setPadding(new Insets(25, 25, 25, 25));
 		Label welcomeLabel = new Label("Main App stuff");
-		this.rootBox.getChildren().add(welcomeLabel);
 		Button logoutButton = new Button("Logout");
 		logoutButton.setOnAction(logoutEvent -> {
 			try {
-				//start(primaryStage);
+				LoginScene loginScene = new LoginScene();
+				loginScene.setStage();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		});
+
+		this.rootBox.getChildren().addAll(welcomeLabel, logoutButton);
     }
 
 }

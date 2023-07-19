@@ -1,4 +1,4 @@
-package utils;
+package data;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -7,7 +7,11 @@ import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.File;
 
+/* FileUtils
+ * Utility class used to read/write to files
+ */
 public class FileUtils {
+
     public static void writeFile(String fileName, String content){
  		try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
 			writer.write(content);
