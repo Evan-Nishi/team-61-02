@@ -8,17 +8,17 @@ import application.scenes.LoginScene;
 
 
 public class Main extends Application {
-	public Stage pStage;
+    public Stage pStage;
 
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-		StageController stageController = StageController.getInstance();
-		stageController.setStage(primaryStage);
-		LoginScene login = new LoginScene();
-		login.setStage();
-	}
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        StageController stageController = StageController.getInstance();
+        stageController.setStage(primaryStage);
+        LoginScene login = new LoginScene();
+        login.setStage();
+    }
 
-	public static void main(String[] args) {
-		launch(args);
-	}
+    public static void main(String[] args) {
+        launch(args);
+    }
 }
