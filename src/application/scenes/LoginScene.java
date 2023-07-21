@@ -42,6 +42,11 @@ public class LoginScene implements ScreenI{
         });
 
         Button forgotPasswordButton = new Button("Forgot Password?");
+        forgotPasswordButton.setOnAction(event -> {
+            ForgotPasswordScene forgotPasswordScene = new ForgotPasswordScene();
+            forgotPasswordScene.setStage();
+        });
+
         this.rootBox.getChildren().addAll(appName, appDescription, pwBox,loginButton, forgotPasswordButton);
     }
 }

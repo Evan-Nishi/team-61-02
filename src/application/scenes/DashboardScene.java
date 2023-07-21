@@ -17,18 +17,15 @@ public class DashboardScene implements ScreenI{
 
     public DashboardScene(){
         this.rootBox.setAlignment(Pos.CENTER);
-	    this.rootBox.setPadding(new Insets(25, 25, 25, 25));
-		Label welcomeLabel = new Label("Main App stuff");
-		Button logoutButton = new Button("Logout");
-		logoutButton.setOnAction(logoutEvent -> {
-			try {
-				LoginScene loginScene = new LoginScene();
-				loginScene.setStage();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		});
-		Button newEntryButton = new Button("New Entry");
+        this.rootBox.setPadding(new Insets(25, 25, 25, 25));
+        Label welcomeLabel = new Label("Main App stuff");
+
+        Button changePasswordButton = new Button("Change Password");
+        changePasswordButton.setOnAction(event -> {
+            ChangePasswordScene changePasswordScene = new ChangePasswordScene();
+            changePasswordScene.setStage();
+        });
+        Button newEntryButton = new Button("New Entry");
         newEntryButton.setOnAction(newEvent -> {
             try {
                 NewEntryScene newEntryScene = new NewEntryScene();
@@ -38,7 +35,17 @@ public class DashboardScene implements ScreenI{
             }
         });
 
-		this.rootBox.getChildren().addAll(welcomeLabel,  newEntryButton, logoutButton);
+        Button logoutButton = new Button("Logout");
+        logoutButton.setOnAction(logoutEvent -> {
+            try {
+                LoginScene loginScene = new LoginScene();
+                loginScene.setStage();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+        this.rootBox.getChildren().addAll(welcomeLabel,  newEntryButton, changePasswordButton, logoutButton);
     }
 
 }
