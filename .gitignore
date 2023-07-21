@@ -3,3 +3,7 @@
 bin
 answer.txt
 question.txt
+.DS_Store
+.idea
+.metadata
+.settings
