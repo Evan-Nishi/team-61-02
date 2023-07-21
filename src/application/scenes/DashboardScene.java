@@ -25,6 +25,15 @@ public class DashboardScene implements ScreenI{
             ChangePasswordScene changePasswordScene = new ChangePasswordScene();
             changePasswordScene.setStage();
         });
+        Button newEntryButton = new Button("New Entry");
+        newEntryButton.setOnAction(newEvent -> {
+            try {
+                NewEntryScene newEntryScene = new NewEntryScene();
+                newEntryScene.setStage();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
 
         Button logoutButton = new Button("Logout");
         logoutButton.setOnAction(logoutEvent -> {
@@ -36,7 +45,7 @@ public class DashboardScene implements ScreenI{
             }
         });
 
-        this.rootBox.getChildren().addAll(welcomeLabel, changePasswordButton, logoutButton);
+        this.rootBox.getChildren().addAll(welcomeLabel,  newEntryButton, changePasswordButton, logoutButton);
     }
 
 }
