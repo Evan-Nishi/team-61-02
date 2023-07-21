@@ -12,9 +12,18 @@ import javafx.scene.control.DatePicker;
 
 import java.time.LocalDate;
 
+/**
+ * NewEntryScene
+ * Scenecontroller for new entry screen
+ * 
+ * @version 0.5
+ */
 public class NewEntryScene implements ScreenI {
     private VBox rootBox = new VBox(10);
 
+    /**
+     * @return Scene Returns a scene of the rootBox
+     */
     public Scene getScene() {
         return new Scene(rootBox, 500, 500);
     }

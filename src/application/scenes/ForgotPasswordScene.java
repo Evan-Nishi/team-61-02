@@ -8,20 +8,26 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 import data.FileUtils;
 
+/**
+ * ForgotPasswordScene
+ * Scenecontroller for forgot password screen
+ * 
+ * @version 0.5
+ */
 public class ForgotPasswordScene implements ScreenI {
     private VBox rootBox = new VBox(10);
 
+    /**
+     * @return Scene Returns a scene of the rootBox
+     */
     public Scene getScene(){
         return new Scene(rootBox, 400, 400);
-    }
-
-    public void addNode(Node node){
-        rootBox.getChildren().add(node);
     }
 
     public ForgotPasswordScene(){
@@ -42,7 +48,9 @@ public class ForgotPasswordScene implements ScreenI {
                 LoginScene loginScene = new LoginScene();
                 loginScene.setStage();
             } else {
-                System.out.println("Answer to security question is incorrect or password don't match");
+                Alert a = new Alert(AlertType.WARNING);
+                a.setContentText("Incorrect Password");
+                a.show();
             }
         });
 

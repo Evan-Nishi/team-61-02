@@ -7,10 +7,18 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
-
+/**
+ * DashboardScene
+ * Scenecontroller for dashboard screen
+ * 
+ * @version 0.5
+ */
 public class DashboardScene implements ScreenI{
     private VBox rootBox = new VBox(10);
 
+    /**
+     * @return Scene Returns a scene of the rootBox
+     */
     public Scene getScene(){
         return new Scene(rootBox, 400, 400);
     }

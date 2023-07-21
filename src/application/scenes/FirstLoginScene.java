@@ -8,19 +8,22 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 
-
+/**
+ * FirstLoginScene
+ * Scenecontroller for initial login screen
+ * 
+ * @version 0.5
+ */
 public class FirstLoginScene implements ScreenI{
     private VBox rootBox = new VBox(10);
 
+    /**
+     * @return Scene Returns a scene of the rootBox
+     */
     public Scene getScene(){
         return new Scene(rootBox, 400, 400);
-    }
-
-    public void addNode(Node node){
-        rootBox.getChildren().add(node);
     }
 
     public FirstLoginScene(){

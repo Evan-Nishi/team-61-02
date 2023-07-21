@@ -10,9 +10,19 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import data.FileUtils;
 
+
+/**
+ * ChangePasswordScene
+ * Scenecontroller for change password screen
+ * 
+ * @version 0.5
+ */
 public class ChangePasswordScene implements ScreenI{
     private VBox rootBox = new VBox(10);
 
+    /**
+     * @return Scene Returns a scene of the rootBox
+     */
     public Scene getScene(){
         return new Scene(rootBox, 400, 400);
     }

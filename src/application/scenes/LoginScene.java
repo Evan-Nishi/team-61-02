@@ -10,8 +10,18 @@ import javafx.scene.control.PasswordField;
 
 import data.FileUtils;
 
+/**
+ * LoginScene
+ * Scenecontroller for login screen
+ * 
+ * @version 0.5
+ */
 public class LoginScene implements ScreenI{
     private VBox rootBox = new VBox(10);
+
+    /**
+     * @return Scene Returns a scene of the rootBox
+     */
     public Scene getScene(){
         return new Scene(rootBox, 400, 400);
     }
