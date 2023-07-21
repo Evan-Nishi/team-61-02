@@ -28,8 +28,17 @@ public class DashboardScene implements ScreenI{
 				e.printStackTrace();
 			}
 		});
+		Button newEntryButton = new Button("New Entry");
+        newEntryButton.setOnAction(newEvent -> {
+            try {
+                NewEntryScene newEntryScene = new NewEntryScene();
+                newEntryScene.setStage();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
 
-		this.rootBox.getChildren().addAll(welcomeLabel, logoutButton);
+		this.rootBox.getChildren().addAll(welcomeLabel,  newEntryButton, logoutButton);
     }
 
 }
