@@ -45,7 +45,7 @@ public class ChangePasswordScene implements ScreenI{
 
         Label newSecurityAnswerLabel = new Label("Answer");
         TextField newSecurityAnswerField = new TextField();
-
+        Label errTag = new Label();
         Button saveChangesButton = new Button("Save Changes");
         saveChangesButton.setOnAction(event -> {
             String currentPassword = FileUtils.readFile(PASSWORD_FILE);
@@ -57,14 +57,16 @@ public class ChangePasswordScene implements ScreenI{
 
                 DashboardScene dashboard = new DashboardScene();
                 dashboard.setStage();
+            } else if (!currentPassword.equals(currentPasswordField)) {
+                errTag.setText("Incorrect password");
             } else {
-                System.out.println("Current password is incorrect or new password don't match");
+                errTag.setText("Passwords don't match");
             }
         });
 
         this.rootBox.getChildren().addAll(currentPasswordLabel, currentPasswordField, newPasswordLabel, newPasswordField,
                 confirmNewPasswordLabel, confirmNewPasswordField, newSecurityQuestionLabel,
                 newSecurityQuestionField, newSecurityAnswerLabel, newSecurityAnswerField,
-                saveChangesButton);
+                saveChangesButton, errTag);
     }
 }

@@ -36,18 +36,20 @@ public class FirstLoginScene implements ScreenI{
         Label securityQLabel = new Label("Set Security Question");
         Label securityALabel = new Label("Set Answer");
         TextField securityQBox = new TextField(), securityABox = new TextField();
+        Label errTag = new Label();
         changeButton.setOnAction(setEvent -> {
             if(changePwBox.getText().equals(confirmPwBox.getText())){
                 FileUtils.writeFile(PASSWORD_FILE, changePwBox.getText());
                 FileUtils.writeFile(SECURITY_QUESTION_FILE, securityQBox.getText());
                 FileUtils.writeFile(SECURITY_ANSWER_FILE, securityABox.getText());
-
+                DashboardScene dashBoard = new DashboardScene();
+                dashBoard.setStage();
             } else {
-                System.out.println("Passwords don't match");
+                errTag.setText("Passwords don't match");
             }
         });
 
-        Button logoutButton = new Button("Logout");
+        Button logoutButton = new Button("Back");
         logoutButton.setOnAction(logoutEvent -> {
             try {
                 LoginScene loginScene = new LoginScene();
@@ -58,7 +60,7 @@ public class FirstLoginScene implements ScreenI{
         });
         //TODO: make more neat.  Maybe have queue of nodes to be added
         //and add them using an iter
-        this.rootBox.getChildren().addAll(changePassLabel, changePwBox, confirmPassLabel, confirmPwBox, securityQLabel, securityQBox, securityALabel, securityABox, changeButton, logoutButton);
+        this.rootBox.getChildren().addAll(changePassLabel, changePwBox, confirmPassLabel, confirmPwBox, securityQLabel, securityQBox, securityALabel, securityABox, changeButton, logoutButton, errTag);
     }
 }
 

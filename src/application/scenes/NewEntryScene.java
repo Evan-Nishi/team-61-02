@@ -1,5 +1,6 @@
 package application.scenes;
 
+import javafx.scene.control.ComboBox;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -7,10 +8,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+
 import javafx.scene.control.DatePicker;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 /**
  * NewEntryScene
@@ -43,15 +47,13 @@ public class NewEntryScene implements ScreenI {
             }
         });
 
-        this.rootBox.getChildren().addAll(newEntryLabel, logoutButton);
 
         Label titleLabel = new Label("Title");
+
         TextField titleField = new TextField();
         titleField.setPromptText("Family Trip to Canada");
 
-        Label dateLabel = new Label("Date*");
-        DatePicker datePicker = new DatePicker();
-        datePicker.setValue(LocalDate.now());
+
 
         Label bodyLabel = new Label("Body*");
         TextArea bodyField = new TextArea();
@@ -67,6 +69,52 @@ public class NewEntryScene implements ScreenI {
             }
         });
 
-        this.rootBox.getChildren().addAll(titleLabel, titleField, dateLabel, datePicker, bodyLabel, bodyField, saveButton);
+        this.rootBox.getChildren().addAll(newEntryLabel,titleLabel, titleField, dateTimeBox(), bodyLabel, bodyField, saveButton,  logoutButton);
+    }
+
+    public HBox dateTimeBox(){
+        HBox root = new HBox(10);
+        VBox timeBox = new VBox(10);
+        VBox dateBox = new VBox(10);
+        HBox timeFieldBox = new HBox(10);
+        Label timeLabel = new Label("Time*");
+        int hour = (LocalTime.now().getHour());
+        boolean isPm;
+        if(hour > 12){
+            isPm = true;
+            hour -= 12;
+        } else if( hour == 24) {
+            hour -= 12;
+            isPm = false;
+        } else {
+            isPm = false;
+        }
+        String minute = String.format("%02d", LocalTime.now().getMinute());
+        String defaultVal = (String.valueOf(hour) + ":" + minute);
+        TextField timeField = new TextField(defaultVal);
+        ComboBox amPm = new ComboBox<String>();
+        amPm.getItems().addAll("pm","am");
+        amPm.setValue( isPm ? "pm": "am");
+
+        
+        Label dateLabel = new Label("Date*");
+        DatePicker datePicker = new DatePicker();
+        datePicker.setValue(LocalDate.now());
+
+        timeField.focusedProperty().addListener((arg0, oldVal, newVal) -> {
+            if(!newVal){
+                if(!timeField.getText().matches("(0?[1-9]|1[0-2]):[0-5][0-9]")){
+                    timeField.setText(defaultVal);
+                }
+            }
+        });
+
+
+
+        timeFieldBox.getChildren().addAll(timeField, amPm);
+        timeBox.getChildren().addAll(timeLabel, timeFieldBox);
+        dateBox.getChildren().addAll(dateLabel, datePicker);
+        root.getChildren().addAll(dateBox, timeBox);
+        return root;
     }
 }
