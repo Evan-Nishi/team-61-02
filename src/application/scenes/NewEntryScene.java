@@ -79,16 +79,15 @@ public class NewEntryScene implements ScreenI {
         HBox timeFieldBox = new HBox(10);
         Label timeLabel = new Label("Time*");
         int hour = (LocalTime.now().getHour());
-        boolean isPm;
-        if(hour > 12){
+        boolean isPm = false;
+
+        if(hour == 24){
+            hour = 12;
+        } else if (hour > 12){
             isPm = true;
             hour -= 12;
-        } else if( hour == 24) {
-            hour -= 12;
-            isPm = false;
-        } else {
-            isPm = false;
         }
+
         String minute = String.format("%02d", LocalTime.now().getMinute());
         String defaultVal = (String.valueOf(hour) + ":" + minute);
         TextField timeField = new TextField(defaultVal);
