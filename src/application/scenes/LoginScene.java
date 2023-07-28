@@ -6,12 +6,23 @@ import javafx.geometry.Insets;
 import javafx.scene.text.Text;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 
 import data.FileUtils;
 
+/**
+ * LoginScene
+ * Scenecontroller for login screen
+ * 
+ * @version 0.5
+ */
 public class LoginScene implements ScreenI{
     private VBox rootBox = new VBox(10);
+
+    /**
+     * @return Scene Returns a scene of the rootBox
+     */
     public Scene getScene(){
         return new Scene(rootBox, 400, 400);
     }
@@ -26,6 +37,7 @@ public class LoginScene implements ScreenI{
         pwBox.setPromptText("Password");
 
         Button loginButton = new Button("Login");
+        Label errTag = new Label();
         loginButton.setOnAction(event -> {
             String password = FileUtils.readFile(PASSWORD_FILE);
 
@@ -37,11 +49,16 @@ public class LoginScene implements ScreenI{
                 dashboard.setStage();
             } else {
                 //TODO: create alert for user and reprompt
-                System.out.println("Passwords don't match");
+                errTag.setText("Incorrect password");
             }
         });
 
         Button forgotPasswordButton = new Button("Forgot Password?");
-        this.rootBox.getChildren().addAll(appName, appDescription, pwBox,loginButton, forgotPasswordButton);
+        forgotPasswordButton.setOnAction(event -> {
+            ForgotPasswordScene forgotPasswordScene = new ForgotPasswordScene();
+            forgotPasswordScene.setStage();
+        });
+
+        this.rootBox.getChildren().addAll(appName, appDescription, pwBox,loginButton, forgotPasswordButton, errTag);
     }
 }
