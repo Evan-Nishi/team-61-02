@@ -57,7 +57,7 @@ public class ChangePasswordScene implements ScreenI{
 
                 DashboardScene dashboard = new DashboardScene();
                 dashboard.setStage();
-            } else if (!currentPassword.equals(currentPasswordField)) {
+            } else if (!currentPassword.equals(currentPasswordField.getText())) {
                 errTag.setText("Incorrect password");
             } else {
                 errTag.setText("Passwords don't match");

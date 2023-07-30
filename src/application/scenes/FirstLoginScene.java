@@ -58,8 +58,6 @@ public class FirstLoginScene implements ScreenI{
                 e.printStackTrace();
             }
         });
-        //TODO: make more neat.  Maybe have queue of nodes to be added
-        //and add them using an iter
         this.rootBox.getChildren().addAll(changePassLabel, changePwBox, confirmPassLabel, confirmPwBox, securityQLabel, securityQBox, securityALabel, securityABox, changeButton, logoutButton, errTag);
     }
 }

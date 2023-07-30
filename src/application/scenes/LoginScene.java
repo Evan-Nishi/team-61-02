@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 
+
 import data.FileUtils;
 
 /**
@@ -48,7 +49,6 @@ public class LoginScene implements ScreenI{
                 DashboardScene dashboard = new DashboardScene();
                 dashboard.setStage();
             } else {
-                //TODO: create alert for user and reprompt
                 errTag.setText("Incorrect password");
             }
         });

@@ -6,13 +6,13 @@ import javafx.stage.Stage;
 
 import application.scenes.LoginScene;
 
-
 public class Main extends Application {
     public Stage pStage;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         StageController stageController = StageController.getInstance();
+
         stageController.setStage(primaryStage);
         LoginScene login = new LoginScene();
         login.setStage();
