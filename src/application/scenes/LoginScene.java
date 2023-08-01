@@ -1,6 +1,7 @@
 package application.scenes;
 
 import javafx.geometry.Pos;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.geometry.Insets;
 import javafx.scene.text.Text;
@@ -9,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 
+import application.scenes.ChangePasswordScene;
 
 import data.FileUtils;
 
@@ -59,6 +61,16 @@ public class LoginScene implements ScreenI{
             forgotPasswordScene.setStage();
         });
 
-        this.rootBox.getChildren().addAll(appName, appDescription, pwBox,loginButton, forgotPasswordButton, errTag);
+        Button changePasswordButton = new Button("Change Password");
+        changePasswordButton.setOnAction(event -> {
+            ChangePasswordScene changePasswordScene = new ChangePasswordScene();
+            changePasswordScene.setStage();
+        });
+
+        HBox buttonBox = new HBox(10);
+        buttonBox.setAlignment(Pos.CENTER);
+        buttonBox.getChildren().addAll(forgotPasswordButton, changePasswordButton);
+
+        this.rootBox.getChildren().addAll(appName, appDescription, pwBox,loginButton, buttonBox, errTag);
     }
 }

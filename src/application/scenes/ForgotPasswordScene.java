@@ -1,4 +1,3 @@
-// ForgotPasswordScene
 package application.scenes;
 
 import javafx.geometry.Insets;
