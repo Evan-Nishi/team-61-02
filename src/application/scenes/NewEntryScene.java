@@ -106,6 +106,7 @@ public class NewEntryScene implements ScreenI {
         timeBox.getChildren().addAll(timeLabel, timeFieldBox);
         dateBox.getChildren().addAll(dateLabel, datePicker);
         dateTimeBox.getChildren().addAll(dateBox, timeBox);
+        Label errTag = new Label();
         Button saveButton = new Button("Save");
         saveButton.setOnAction(event -> {
             try {
@@ -113,26 +114,30 @@ public class NewEntryScene implements ScreenI {
                 String body = bodyField.getText();
                 String date = datePicker.getValue().getMonthValue() + "/" + datePicker.getValue().getDayOfMonth() + "/" + datePicker.getValue().getYear();
                 String time;
-                //if (timeField.getText(hour, hour))
-                String[] parsedTime = timeField.getText().split(":");
-                int h = Integer.valueOf(parsedTime[0]);
-                int m = Integer.valueOf(parsedTime[1]);
-                if(amPm.getValue().toString().equals("pm") && h != 12){
-                    h += 12;
-                    time = String.valueOf(h) + ":" + String.valueOf(m);
+                if(body.length() == 0){
+                    errTag.setText("context required");
                 } else {
-                    time = timeField.getText();
+                    String[] parsedTime = timeField.getText().split(":");
+                    int h = Integer.valueOf(parsedTime[0]);
+                    int m = Integer.valueOf(parsedTime[1]);
+                    if(amPm.getValue().toString().equals("pm") && h != 12){
+                        h += 12;
+                        time = String.valueOf(h) + ":" + String.valueOf(m);
+                    } else {
+                        time = timeField.getText();
+                    }
+                
+                    System.out.println(title + " entry saved");
+                    DBConnecter.getInstance().insertEntry(title, body, date, time);
+                    DashboardScene dashboardScene = new DashboardScene();
+                    dashboardScene.setStage();
                 }
-               
-                System.out.println(title + " entry saved");
-                DBConnecter.getInstance().insertEntry(title, body, date, time);
-                DashboardScene dashboardScene = new DashboardScene();
-                dashboardScene.setStage();
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
         });
 
-        this.rootBox.getChildren().addAll(newEntryLabel,titleLabel, titleField, dateTimeBox, bodyLabel, bodyField, saveButton,  logoutButton);
+        this.rootBox.getChildren().addAll(newEntryLabel,titleLabel, titleField, dateTimeBox, bodyLabel, bodyField, errTag, saveButton,  logoutButton);
     }
 }

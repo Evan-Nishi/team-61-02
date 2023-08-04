@@ -8,8 +8,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 
 import data.FileUtils;
 
@@ -39,6 +37,7 @@ public class ForgotPasswordScene implements ScreenI {
         Label confirmPassLabel = new Label("Confirm New Password");
         PasswordField confirmPwBox = new PasswordField();
         Button saveButton = new Button("Save");
+        Label errTag = new Label();
         saveButton.setOnAction(event -> {
             if (answerBox.getText().equals(FileUtils.readFile(SECURITY_ANSWER_FILE)) &&
                     newPasswordBox.getText().equals(confirmPwBox.getText())) {
@@ -46,14 +45,12 @@ public class ForgotPasswordScene implements ScreenI {
 
                 LoginScene loginScene = new LoginScene();
                 loginScene.setStage();
-            } else {
-                Alert a = new Alert(AlertType.WARNING);
-                a.setContentText("Incorrect Password");
-                a.show();
+            } else{
+                errTag.setText("Incorrect answer");
             }
         });
 
-        this.rootBox.getChildren().addAll(securityQLabel, answerBox, newPasswordLabel, newPasswordBox, confirmPassLabel, confirmPwBox, saveButton);
+        this.rootBox.getChildren().addAll(securityQLabel, answerBox, newPasswordLabel, newPasswordBox, confirmPassLabel, confirmPwBox,errTag, saveButton);
     }
 }
 
