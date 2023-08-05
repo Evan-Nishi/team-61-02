@@ -39,7 +39,9 @@ public class ForgotPasswordScene implements ScreenI {
         Button saveButton = new Button("Save");
         Label errTag = new Label();
         saveButton.setOnAction(event -> {
-            if (answerBox.getText().equals(FileUtils.readFile(SECURITY_ANSWER_FILE)) &&
+            if(newPasswordBox.getText().length() == 0){
+                errTag.setText("Please fill in all fields");
+            } else if (answerBox.getText().equals(FileUtils.readFile(SECURITY_ANSWER_FILE)) &&
                     newPasswordBox.getText().equals(confirmPwBox.getText())) {
                 FileUtils.writeFile(PASSWORD_FILE, newPasswordBox.getText());
 

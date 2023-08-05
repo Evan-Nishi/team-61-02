@@ -49,7 +49,10 @@ public class ChangePasswordScene implements ScreenI{
         Button saveChangesButton = new Button("Save Changes");
         saveChangesButton.setOnAction(event -> {
             String currentPassword = FileUtils.readFile(PASSWORD_FILE);
-            if (currentPasswordField.getText().equals(currentPassword) &&
+            if(newSecurityQuestionField.getText().length() == 0 || newSecurityAnswerField.getText().length() == 0){
+                errTag.setText("Please fill in all fields");
+            }
+            else if (currentPasswordField.getText().equals(currentPassword) &&
                     newPasswordField.getText().equals(confirmNewPasswordField.getText())) {
                 FileUtils.writeFile(PASSWORD_FILE, newPasswordField.getText());
                 FileUtils.writeFile(SECURITY_QUESTION_FILE, newSecurityQuestionField.getText());

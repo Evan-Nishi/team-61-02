@@ -33,17 +33,21 @@ public class DashboardScene implements ScreenI{
         searchBar.setPromptText("search entries");
 
         VBox searchRes = new VBox();
-
+        Label errTag = new Label();
         //have searchbar fetch on enter rather than on character update is better as it limits db calls
         searchBar.setOnKeyPressed(new EventHandler<KeyEvent>(){
             public void handle(KeyEvent k){
+                errTag.setText("");
                 if (k.getCode().equals(KeyCode.ENTER)) {
                     ArrayList<JournalEntry> entries = DBConnecter.getInstance().searchEntries(searchBar.getText());
                     searchRes.getChildren().clear();
                     for (int i = 0; i < entries.size(); i++){
                         searchRes.getChildren().add(entryNode(entries.get(i), searchRes));
                     }
-            }
+                    if(entries.size() == 0){
+                        errTag.setText("No results found");
+                    }
+                 }
         }});
 
 		Button logoutButton = new Button("Logout");
@@ -66,7 +70,7 @@ public class DashboardScene implements ScreenI{
             }
         });
 
-		this.rootBox.getChildren().addAll(welcomeLabel, searchBar,  newEntryButton, logoutButton, searchRes);
+		this.rootBox.getChildren().addAll(welcomeLabel, searchBar,  newEntryButton, logoutButton, searchRes, errTag);
     }
 
     /**

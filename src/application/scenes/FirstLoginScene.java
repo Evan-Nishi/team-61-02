@@ -38,7 +38,10 @@ public class FirstLoginScene implements ScreenI{
         TextField securityQBox = new TextField(), securityABox = new TextField();
         Label errTag = new Label();
         changeButton.setOnAction(setEvent -> {
-            if(changePwBox.getText().equals(confirmPwBox.getText())){
+            if(securityQBox.getText().length() == 0 || securityABox.getText().length() == 0){
+                errTag.setText("Please fill in all fields");
+            }
+            else if(changePwBox.getText().equals(confirmPwBox.getText())){
                 FileUtils.writeFile(PASSWORD_FILE, changePwBox.getText());
                 FileUtils.writeFile(SECURITY_QUESTION_FILE, securityQBox.getText());
                 FileUtils.writeFile(SECURITY_ANSWER_FILE, securityABox.getText());

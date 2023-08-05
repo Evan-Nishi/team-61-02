@@ -39,9 +39,9 @@ public class LoginScene implements ScreenI{
 
         Button loginButton = new Button("Login");
         Label errTag = new Label();
-        loginButton.setOnAction(event -> {
-            String password = FileUtils.readFile(PASSWORD_FILE);
+        String password = FileUtils.readFile(PASSWORD_FILE);
 
+        loginButton.setOnAction(event -> {
             if(pwBox.getText().equals(password) && pwBox.getText().equals("p")){
                 FirstLoginScene firstLoginScene = new FirstLoginScene();
                 firstLoginScene.setStage();
@@ -55,14 +55,22 @@ public class LoginScene implements ScreenI{
 
         Button forgotPasswordButton = new Button("Forgot Password?");
         forgotPasswordButton.setOnAction(event -> {
-            ForgotPasswordScene forgotPasswordScene = new ForgotPasswordScene();
-            forgotPasswordScene.setStage();
+            if(password.equals("p")){
+                errTag.setText("Security question not set");
+            } else {
+                ForgotPasswordScene forgotPasswordScene = new ForgotPasswordScene();
+                forgotPasswordScene.setStage();
+            }
         });
 
         Button changePasswordButton = new Button("Change Password");
         changePasswordButton.setOnAction(event -> {
-            ChangePasswordScene changePasswordScene = new ChangePasswordScene();
-            changePasswordScene.setStage();
+            if(password.equals("p")){
+                errTag.setText("Password not set");
+            } else {
+                ChangePasswordScene changePasswordScene = new ChangePasswordScene();
+                changePasswordScene.setStage();
+            }
         });
 
         HBox buttonBox = new HBox(10);

@@ -60,7 +60,6 @@ public class DBConnecter {
 
     public void insertEntry(String title, String body, String date, String time) {
         String sql = "INSERT INTO entries(title, body, date, time) VALUES(?, ?, ?, ?)";
-
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, title);
             pstmt.setString(2, body);
